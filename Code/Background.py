@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-class Backgroung:
+class Background:
     def __init__(self):
         pass
 
