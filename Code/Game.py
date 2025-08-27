@@ -3,7 +3,6 @@
 import pygame
 
 from Code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION
-from Code.Entity import Entity
 from Code.Level import Level
 from Code.Menu import Menu
 
@@ -20,8 +19,12 @@ class Game:
             return_menu = menu.run()
 
             if return_menu in [MENU_OPTION[0], MENU_OPTION[1], MENU_OPTION[2]]:
-                level = Level(self.window, 'Level1', return_menu)
-                level_return = level.run()
+                player_score = [0, 0]
+                level = Level(self.window, 'Level1', return_menu, player_score)
+                level_return = level.run(player_score)
+                if level_return:
+                    level = Level(self.window, 'Level2', return_menu, player_score)
+                    level_return = level.run(player_score)
             elif return_menu == MENU_OPTION[4]:
                 pygame.quit()  # Close window
                 quit()  # End Pygame
