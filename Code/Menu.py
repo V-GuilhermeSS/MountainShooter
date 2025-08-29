@@ -19,6 +19,7 @@ class Menu:
         pygame.mixer_music.load('./asset/Menu.mp3')
         # Playing the music file above
         pygame.mixer_music.play(-1)
+        pygame.mixer_music.set_volume(0.3)
         pygame.key.set_repeat(300, 100)  # key continues navigation while pressed
         while True:
             # DRAW IMAGES

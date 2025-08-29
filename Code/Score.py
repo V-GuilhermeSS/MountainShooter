@@ -29,9 +29,10 @@ class Score:
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             self.score_text(48, 'YOU WIN!!', C_YELLOW, SCORE_POS['Title'])
+            score = player_score[0]
+            text = 'Enter Player1 Name (04 characters)'
             if game_mode == MENU_OPTION[0]:
                 score = player_score[0]
-                text = 'Enter Player1 Name (04 characters)'
             if game_mode == MENU_OPTION[1]:
                 score = (player_score[0] + player_score[1]) / 2
                 text = 'Enter Team Name (04 characters)'
@@ -65,6 +66,7 @@ class Score:
         pygame.mixer_music.load('./asset/Score.mp3')
         # Playing the music file above
         pygame.mixer_music.play(-1)
+        pygame.mixer_music.set_volume(0.5)
         self.window.blit(source=self.surf, dest=self.rect)
         self.score_text(48, 'TOP 10 SCORE', C_YELLOW, SCORE_POS['Title'])
         self.score_text(20, 'NAME     SCORE          DATE      ', C_YELLOW, SCORE_POS['Label'])
