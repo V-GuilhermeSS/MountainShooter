@@ -30,7 +30,8 @@ ENTITY_SPEED = {
     'Enemy1': 2,
     'Enemy1Shot': 5,
     'Enemy2': 1,
-    'Enemy2Shot': 2
+    'Enemy2Shot': 2,
+    'Explosion': 0
 }
 
 ENTITY_HEALTH = {
@@ -46,14 +47,15 @@ ENTITY_HEALTH = {
     'Level2Bg2': 999,
     'Level2Bg3': 999,
     'Level2Bg4': 999,
-    'Player1': 300,
+    'Player1': 100,
     'Player1Shot': 1,
     'Player2': 300,
     'Player2Shot': 1,
     'Enemy1': 50,
     'Enemy1Shot': 1,
     'Enemy2': 60,
-    'Enemy2Shot': 1
+    'Enemy2Shot': 1,
+    'Explosion': 1
 }
 
 ENTITY_SHOT_DELAY = {
@@ -83,7 +85,8 @@ ENTITY_DAMAGE = {
     'Enemy1': 1,
     'Enemy1Shot': 20,
     'Enemy2': 1,
-    'Enemy2Shot': 15
+    'Enemy2Shot': 15,
+    'Explosion': 0
 }
 
 ENTITY_SCORE = {
@@ -106,8 +109,22 @@ ENTITY_SCORE = {
     'Enemy1': 100,
     'Enemy1Shot': 0,
     'Enemy2': 125,
-    'Enemy2Shot': 0
+    'Enemy2Shot': 0,
+    'Explosion': 0
 }
+
+EXPLOSION_FRAMES = [
+    "Ship1_Explosion_001.png",
+    "Ship1_Explosion_003.png",
+    "Ship1_Explosion_008.png",
+    "Ship1_Explosion_009.png",
+    "Ship1_Explosion_012.png",
+    "Ship1_Explosion_013.png",
+    "Ship1_Explosion_014.png",
+    "Ship1_Explosion_017.png",
+    "Ship1_Explosion_019.png",
+    "Ship1_Explosion_020.png"
+]
 
 # M
 MENU_OPTION = ('NEW GAME 1P',

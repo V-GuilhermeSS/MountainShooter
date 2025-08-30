@@ -41,17 +41,27 @@ class Level:
         clock = pygame.time.Clock()
         while True:
             clock.tick(60)
-            for ent in self.entity_list:
-                self.window.blit(source=ent.surf, dest=ent.rect)
+            # dentro de Level.run(), no lugar do laço de entidades:
+            for ent in self.entity_list[:]:  # iterar sobre cópia segura
                 ent.move()
+                # tiros (somente Player/Enemy)
                 if isinstance(ent, (Player, Enemy)):
                     shoot = ent.shoot()
                     if shoot is not None:
                         self.entity_list.append(shoot)
+
+                # desenhar -- usa draw() se existir
+                if hasattr(ent, "draw"):
+                    ent.draw(self.window)
+                else:
+                    self.window.blit(ent.surf, ent.rect)
+
+            # depois de desenhar as entidades, exibir HUD dos players (se existirem)
+            for ent in self.entity_list:
                 if ent.name == 'Player1':
-                    self.level_text(14, f'Player1 - Health:{ent.health} | SCORE:{ent.score}', C_GREEN, (10, 15))
+                    self.level_text(14, f'Player1 - Health: {ent.health} | Score: {ent.score}', C_GREEN, (10, 25))
                 if ent.name == 'Player2':
-                    self.level_text(14, f'Player1 - Health:{ent.health} | SCORE:{ent.score}', C_CYAN, (10, 30))
+                    self.level_text(14, f'Player2 - Health: {ent.health} | Score: {ent.score}', C_CYAN, (10, 45))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

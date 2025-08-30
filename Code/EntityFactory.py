@@ -5,6 +5,7 @@ import random
 from Code.Background import Background
 from Code.Const import WIN_WIDTH, WIN_HEIGHT
 from Code.Enemy import Enemy
+from Code.Explosion import Explosion
 from Code.Player import Player
 
 

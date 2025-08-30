@@ -9,8 +9,9 @@ from Code.PlayerShot import PlayerShot
 
 
 class EntityMediator:
+
     @staticmethod
-    def __verify_collision_window(ent: Entity):  # ('__') metodo privado
+    def __verify_collision_window(ent: Entity):
         if isinstance(ent, Enemy):
             if ent.rect.right <= 0:
                 ent.health = 0
@@ -20,10 +21,9 @@ class EntityMediator:
         if isinstance(ent, EnemyShot):
             if ent.rect.right <= 0:
                 ent.health = 0
-        pass
 
     @staticmethod
-    def __verify_collision_entity(ent1, ent2):  # ('__') metodo privado
+    def __verify_collision_entity(ent1, ent2):
         valid_interaction = False
         if isinstance(ent1, Enemy) and isinstance(ent2, PlayerShot):
             valid_interaction = True
@@ -32,6 +32,10 @@ class EntityMediator:
         elif isinstance(ent1, Player) and isinstance(ent2, EnemyShot):
             valid_interaction = True
         elif isinstance(ent1, EnemyShot) and isinstance(ent2, Player):
+            valid_interaction = True
+        elif isinstance(ent1, Player) and isinstance(ent2, Enemy):
+            valid_interaction = True
+        elif isinstance(ent1, Enemy) and isinstance(ent2, Player):
             valid_interaction = True
 
         if valid_interaction:
@@ -46,6 +50,11 @@ class EntityMediator:
 
     @staticmethod
     def __give_score(enemy: Enemy, entity_list: list[Entity]):
+        # só dá a pontuação 1 vez
+        if getattr(enemy, "score_given", False):
+            return
+        enemy.score_given = True
+
         if enemy.last_dmg == 'Player1Shot':
             for ent in entity_list:
                 if ent.name == 'Player1':
@@ -66,8 +75,33 @@ class EntityMediator:
 
     @staticmethod
     def verify_health(entity_list: list[Entity]):
-        for ent in entity_list:
+        """
+        Verifica saúde:
+         - se uma entidade não suporta explosão (não tem is_finished), remove imediatamente
+         - se suporta (Player/Enemy), espera até explosion.finished para remover
+         - garante que a pontuação seja contabilizada apenas 1 vez para inimigos
+        """
+        # itera sobre cópia para permitir remoção segura
+        for ent in entity_list[:]:
             if ent.health <= 0:
+                # atribui pontuação (se for inimigo) apenas 1 vez
                 if isinstance(ent, Enemy):
                     EntityMediator.__give_score(ent, entity_list)
-                entity_list.remove(ent)
+
+                # se tiver método is_finished -> só remove quando ready
+                if hasattr(ent, "is_finished"):
+                    try:
+                        if ent.is_finished():
+                            entity_list.remove(ent)
+                    except Exception:
+                        # segurança: se is_finished lançar, remove para evitar entities 'presas'
+                        try:
+                            entity_list.remove(ent)
+                        except ValueError:
+                            pass
+                else:
+                    # entidades sem suporte a explosão são removidas imediatamente
+                    try:
+                        entity_list.remove(ent)
+                    except ValueError:
+                        pass
