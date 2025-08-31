@@ -5,6 +5,8 @@ from typing import List
 import pygame
 from pygame import Surface, Rect
 
+from Code.Const import EXPLOSION_FRAMES
+
 
 class Explosion:
     def __init__(self, position: tuple, scale: float = 1.0, frame_delay: int = 4):
@@ -13,20 +15,8 @@ class Explosion:
         scale: fator de escala das imagens
         frame_delay: quantos frames do jogo cada frame da animação deve durar
         """
-        image_names: List[str] = [
-            "Ship1_Explosion_001.png",
-            "Ship1_Explosion_003.png",
-            "Ship1_Explosion_008.png",
-            "Ship1_Explosion_009.png",
-            "Ship1_Explosion_012.png",
-            "Ship1_Explosion_013.png",
-            "Ship1_Explosion_017.png",
-            "Ship1_Explosion_019.png",
-            "Ship1_Explosion_020.png"
-        ]
 
-        self.frames = [pygame.image.load(f'./asset/{name}').convert_alpha() for name in image_names]
-
+        self.frames = [pygame.image.load(f'./asset/{name}').convert_alpha() for name in EXPLOSION_FRAMES]
         if scale != 1.0:
             self.frames = [
                 pygame.transform.scale(f, (int(f.get_width() * scale), int(f.get_height() * scale)))
