@@ -1,22 +1,32 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from typing import List
 
 import pygame
 from pygame import Surface, Rect
 
 from Code.Const import EXPLOSION_FRAMES
+from Code.Entity import Entity
 
 
-class Explosion:
-    def __init__(self, position: tuple, scale: float = 1.0, frame_delay: int = 4):
+class Explosion(Entity):
+    def __init__(self, position: tuple, name: str, scale: float = 1.0, frame_delay: int = 4):
         """
-        position: centro da explosão (x, y)
+        Position: centro da explosão (x, y)
+        name: nome da entidade (para buscar os frames no dicionário)
         scale: fator de escala das imagens
         frame_delay: quantos frames do jogo cada frame da animação deve durar
         """
 
-        self.frames = [pygame.image.load(f'./asset/{name}').convert_alpha() for name in EXPLOSION_FRAMES]
+        super().__init__(name, position)
+
+        # pega os frames da explosão a partir do dicionário
+        frame_files = EXPLOSION_FRAMES.get(name, [])
+        if not frame_files:
+            raise ValueError(f"Nenhum frame de explosão definido para {name}")
+
+        self.frames = [pygame.image.load(f'./asset/{file}').convert_alpha() for file in frame_files]
+
+        # aplica escala se necessário
         if scale != 1.0:
             self.frames = [
                 pygame.transform.scale(f, (int(f.get_width() * scale), int(f.get_height() * scale)))
@@ -47,3 +57,6 @@ class Explosion:
         """Desenha o frame atual."""
         if not self.finished:
             surface.blit(self.frames[self.index], self.rect)
+
+    def move(self):
+        pass

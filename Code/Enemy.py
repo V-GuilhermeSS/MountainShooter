@@ -12,13 +12,14 @@ class Enemy(Entity):
         self.shot_delay = ENTITY_SHOT_DELAY[self.name]
         self.explosion: Explosion | None = None
         self.score_given = False  # garante que a pontuação seja somada apenas 1 vez
+        self.name = name
 
     def move(self):
         if self.health > 0:
             self.rect.centerx -= ENTITY_SPEED[self.name]
         else:
             if not self.explosion:
-                self.explosion = Explosion(position=self.rect.center, scale=1.0, frame_delay=4)
+                self.explosion = Explosion(position=self.rect.center, scale=1.0, frame_delay=4, name=self.name)
             else:
                 self.explosion.update()
 

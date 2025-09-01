@@ -113,9 +113,9 @@ ENTITY_SCORE = {
     'Explosion': 0
 }
 
-EXPLOSION_FRAMES = [
-    "Ship1_Explosion_001.png",
-    "Ship1_Explosion_003.png",
+EXPLOSION_FRAMES = {'Player1': [
+    'Ship1_Explosion_001.png',
+    'Ship1_Explosion_001.png',
     "Ship1_Explosion_008.png",
     "Ship1_Explosion_009.png",
     "Ship1_Explosion_012.png",
@@ -124,7 +124,46 @@ EXPLOSION_FRAMES = [
     "Ship1_Explosion_017.png",
     "Ship1_Explosion_019.png",
     "Ship1_Explosion_020.png"
-]
+], 'Player2': [
+    "Ship2_Explosion_000.png",
+    "Ship2_Explosion_004.png",
+    "Ship2_Explosion_005.png",
+    "Ship2_Explosion_008.png",
+    "Ship2_Explosion_009.png",
+    "Ship2_Explosion_010.png",
+    "Ship2_Explosion_013.png",
+    "Ship2_Explosion_014.png",
+    "Ship2_Explosion_015.png",
+    "Ship2_Explosion_016.png",
+    "Ship2_Explosion_019.png",
+    "Ship2_Explosion_021.png"
+], 'Enemy1': [
+    "Ship3_Explosion_000.png",
+    "Ship3_Explosion_004.png",
+    "Ship3_Explosion_005.png",
+    "Ship3_Explosion_007.png",
+    "Ship3_Explosion_009.png",
+    "Ship3_Explosion_012.png",
+    "Ship3_Explosion_013.png",
+    "Ship3_Explosion_015.png",
+    "Ship3_Explosion_018.png",
+    "Ship3_Explosion_019.png",
+    "Ship3_Explosion_021.png"
+],
+    'Enemy2': [
+        "Ship4_Explosion_000.png",
+        "Ship4_Explosion_003.png",
+        "Ship4_Explosion_005.png",
+        "Ship4_Explosion_007.png",
+        "Ship4_Explosion_008.png",
+        "Ship4_Explosion_012.png",
+        "Ship4_Explosion_013.png",
+        "Ship4_Explosion_015.png",
+        "Ship4_Explosion_018.png",
+        "Ship4_Explosion_019.png",
+        "Ship4_Explosion_020.png"
+    ]
+}
 
 # M
 MENU_OPTION = ('NEW GAME 1P',

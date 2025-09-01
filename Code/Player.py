@@ -30,7 +30,7 @@ class Player(Entity):
             # Cria explosão assim que detecta morte (se ainda não criada)
             if not self.explosion:
                 # ajuste frame_delay/scale se quiser
-                self.explosion = Explosion(position=self.rect.center, scale=1.0, frame_delay=4)
+                self.explosion = Explosion(position=self.rect.center, scale=1.0, frame_delay=4, name=self.name)
             else:
                 self.explosion.update()
 
