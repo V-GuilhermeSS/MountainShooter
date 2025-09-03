@@ -3,7 +3,7 @@
 import pygame.key
 
 from Code.Const import ENTITY_SPEED, WIN_HEIGHT, WIN_WIDTH, PLAYER_KEY_UP, PLAYER_KEY_DOWN, PLAYER_KEY_LEFT, \
-    PLAYER_KEY_RIGHT, PLAYER_KEY_SHOOT, ENTITY_SHOT_DELAY, SHOT_SOUNDS
+    PLAYER_KEY_RIGHT, PLAYER_KEY_SHOOT, ENTITY_SHOT_DELAY, SHOT_SOUNDS, EXPLOSION_SOUND
 from Code.Entity import Entity
 from Code.Explosion import Explosion
 from Code.PlayerShot import PlayerShot
@@ -14,9 +14,10 @@ class Player(Entity):
         super().__init__(name, position)
         self.shot_delay = ENTITY_SHOT_DELAY[self.name]
         self.explosion: Explosion | None = None
-        self.explosion_sound = pygame.mixer.Sound(SHOT_SOUNDS.get(self.name))
+        self.shot_sound = pygame.mixer.Sound(SHOT_SOUNDS.get(self.name))
         self.last_shot_time = 0
         self.shot_cooldown = ENTITY_SHOT_DELAY[self.name]  # em milissegundos
+        self.explosion_sound = pygame.mixer.Sound(EXPLOSION_SOUND[self.name])
 
     def move(self):
         if self.health > 0:
@@ -32,7 +33,7 @@ class Player(Entity):
         else:
             # Cria explosão assim que detecta morte (se ainda não criada)
             if not self.explosion:
-                # ajuste frame_delay/scale se quiser
+                self.explosion_sound.play()
                 self.explosion = Explosion(position=self.rect.center, scale=1.0, frame_delay=4, name=self.name)
 
             else:
@@ -47,18 +48,16 @@ class Player(Entity):
             pressed_key = pygame.key.get_pressed()
             if pressed_key[PLAYER_KEY_SHOOT[self.name]]:
                 self.last_shot_time = current_time
-                self.explosion_sound.play()
+                self.shot_sound.play()
                 return PlayerShot(name=f'{self.name}Shot', position=(self.rect.centerx, self.rect.centery))
         return None
 
+    def draw(self, surface):
+        if self.health > 0:
+            surface.blit(self.surf, self.rect)
+        elif self.explosion and not self.explosion.finished:
+            self.explosion.draw(surface)
 
-def draw(self, surface):
-    if self.health > 0:
-        surface.blit(self.surf, self.rect)
-    elif self.explosion and not self.explosion.finished:
-        self.explosion.draw(surface)
-
-
-def is_finished(self):
-    """Indica se a entidade pode ser removida da lista (explosão terminou)."""
-    return self.health <= 0 and self.explosion is not None and self.explosion.finished
+    def is_finished(self):
+        """Indica se a entidade pode ser removida da lista (explosão terminou)."""
+        return self.health <= 0 and self.explosion is not None and self.explosion.finished

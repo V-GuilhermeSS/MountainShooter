@@ -61,7 +61,7 @@ ENTITY_HEALTH = {
 ENTITY_SHOT_DELAY = {
     'Player1': 120,
     'Player2': 120,
-    'Enemy1': 100,
+    'Enemy1': 120,
     'Enemy2': 200,
 }
 
@@ -113,6 +113,15 @@ ENTITY_SCORE = {
     'Explosion': 0
 }
 
+EXPLOSION_SOUND = {'Player1': './asset/8bit_bomb_explosion.wav',
+                   'Player2': './asset/8bit_bomb_explosion.wav',
+                   'Enemy1': './asset/8bit_bomb_explosion.wav',
+                   'Enemy2': './asset/8bit_bomb_explosion.wav',
+                   'Level1': './asset/8bit_bomb_explosion.wav',
+                   'Level2': './asset/8bit_bomb_explosion.wav',
+
+                   }
+
 EXPLOSION_FRAMES = {'Player1': [
     'Ship1_Explosion_001.png',
     'Ship1_Explosion_001.png',
@@ -126,31 +135,31 @@ EXPLOSION_FRAMES = {'Player1': [
     "Ship1_Explosion_020.png"
 ],
     'Player2': [
-    "Ship2_Explosion_000.png",
-    "Ship2_Explosion_004.png",
-    "Ship2_Explosion_005.png",
-    "Ship2_Explosion_008.png",
-    "Ship2_Explosion_009.png",
-    "Ship2_Explosion_010.png",
-    "Ship2_Explosion_013.png",
-    "Ship2_Explosion_014.png",
-    "Ship2_Explosion_015.png",
-    "Ship2_Explosion_016.png",
-    "Ship2_Explosion_019.png",
-    "Ship2_Explosion_021.png"
-], 'Enemy1': [
-    "Ship3_Explosion_000.png",
-    "Ship3_Explosion_004.png",
-    "Ship3_Explosion_005.png",
-    "Ship3_Explosion_007.png",
-    "Ship3_Explosion_009.png",
-    "Ship3_Explosion_012.png",
-    "Ship3_Explosion_013.png",
-    "Ship3_Explosion_015.png",
-    "Ship3_Explosion_018.png",
-    "Ship3_Explosion_019.png",
-    "Ship3_Explosion_021.png"
-],
+        "Ship2_Explosion_000.png",
+        "Ship2_Explosion_004.png",
+        "Ship2_Explosion_005.png",
+        "Ship2_Explosion_008.png",
+        "Ship2_Explosion_009.png",
+        "Ship2_Explosion_010.png",
+        "Ship2_Explosion_013.png",
+        "Ship2_Explosion_014.png",
+        "Ship2_Explosion_015.png",
+        "Ship2_Explosion_016.png",
+        "Ship2_Explosion_019.png",
+        "Ship2_Explosion_021.png"
+    ], 'Enemy1': [
+        "Ship3_Explosion_000.png",
+        "Ship3_Explosion_004.png",
+        "Ship3_Explosion_005.png",
+        "Ship3_Explosion_007.png",
+        "Ship3_Explosion_009.png",
+        "Ship3_Explosion_012.png",
+        "Ship3_Explosion_013.png",
+        "Ship3_Explosion_015.png",
+        "Ship3_Explosion_018.png",
+        "Ship3_Explosion_019.png",
+        "Ship3_Explosion_021.png"
+    ],
     'Enemy2': [
         "Ship4_Explosion_000.png",
         "Ship4_Explosion_003.png",
@@ -168,7 +177,8 @@ EXPLOSION_FRAMES = {'Player1': [
 
 # L
 
-LEVEL_SCORE_THRESHOLD = 1200
+LEVEL_SCORE_THRESHOLD = {'Level1': 1200,
+                         'Level2': 3500}
 
 # M
 MENU_OPTION = ('NEW GAME 1P',
@@ -188,7 +198,8 @@ PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT,
 PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL,
                     'Player2': pygame.K_LCTRL}
 # S
-SPAWN_TIME = 5000
+SPAWN_TIME = {'Level1': 5000,
+              'Level2': 3500}
 
 SHOT_SOUNDS = {
     'Player1': './asset/Fire_1.mp3',

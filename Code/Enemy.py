@@ -4,7 +4,7 @@ import random
 
 import pygame
 
-from Code.Const import ENTITY_SPEED, ENTITY_SHOT_DELAY, SHOT_SOUNDS
+from Code.Const import ENTITY_SPEED, ENTITY_SHOT_DELAY, SHOT_SOUNDS, EXPLOSION_SOUND
 from Code.EnemyShot import EnemyShot
 from Code.Entity import Entity
 from Code.Explosion import Explosion
@@ -21,7 +21,7 @@ class Enemy(Entity):
         self.has_shot_once = False
         self.shot_delay = 10
         self.active_shots = []
-        self.explosion_sound = pygame.mixer.Sound('./asset/8bit_bomb_explosion.wav')
+        self.explosion_sound = pygame.mixer.Sound(EXPLOSION_SOUND[self.name])
 
     def move(self):
         if self.health > 0:
