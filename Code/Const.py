@@ -24,9 +24,9 @@ ENTITY_SPEED = {
     'Level2Bg3': 3,
     'Level2Bg4': 4,
     'Player1': 3,
-    'Player1Shot': 1,
+    'Player1Shot': 2,
     'Player2': 3,
-    'Player2Shot': 3,
+    'Player2Shot': 4,
     'Enemy1': 2,
     'Enemy1Shot': 5,
     'Enemy2': 1,
@@ -47,7 +47,7 @@ ENTITY_HEALTH = {
     'Level2Bg2': 999,
     'Level2Bg3': 999,
     'Level2Bg4': 999,
-    'Player1': 100,
+    'Player1': 300,
     'Player1Shot': 1,
     'Player2': 300,
     'Player2Shot': 1,
@@ -59,8 +59,8 @@ ENTITY_HEALTH = {
 }
 
 ENTITY_SHOT_DELAY = {
-    'Player1': 20,
-    'Player2': 15,
+    'Player1': 120,
+    'Player2': 120,
     'Enemy1': 100,
     'Enemy2': 200,
 }
@@ -124,7 +124,8 @@ EXPLOSION_FRAMES = {'Player1': [
     "Ship1_Explosion_017.png",
     "Ship1_Explosion_019.png",
     "Ship1_Explosion_020.png"
-], 'Player2': [
+],
+    'Player2': [
     "Ship2_Explosion_000.png",
     "Ship2_Explosion_004.png",
     "Ship2_Explosion_005.png",
@@ -165,6 +166,10 @@ EXPLOSION_FRAMES = {'Player1': [
     ]
 }
 
+# L
+
+LEVEL_SCORE_THRESHOLD = 1200
+
 # M
 MENU_OPTION = ('NEW GAME 1P',
                'NEW GAME 2P - COOPERATIVE',
@@ -183,11 +188,18 @@ PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT,
 PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL,
                     'Player2': pygame.K_LCTRL}
 # S
-SPAWN_TIME = 4000
+SPAWN_TIME = 5000
+
+SHOT_SOUNDS = {
+    'Player1': './asset/Fire_1.mp3',
+    'Player2': './asset/Fire_4.mp3',
+    'Enemy1': './asset/Fire_2.mp3',
+    'Enemy2': './asset/Fire_5.mp3'
+}
 
 # T
 TIMEOUT_STEP = 100  # 100 miliseconds
-TIMEOUT_LEVEL = 20000  # 20 seconds
+TIMEOUT_LEVEL = 60000  # 20 seconds
 
 # W
 WIN_WIDTH = 576

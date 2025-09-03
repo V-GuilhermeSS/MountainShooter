@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import os
 import random
 import sys
+
 import pygame.display
 from pygame import Surface, Rect
 from pygame.font import Font
@@ -12,9 +12,9 @@ from Code.Const import (
     C_GREEN, C_CYAN, EVENT_TIMEOUT, TIMEOUT_STEP, TIMEOUT_LEVEL, C_YELLOW
 )
 from Code.Enemy import Enemy
-from Code.EntityMediator import EntityMediator
 from Code.Entity import Entity
 from Code.EntityFactory import EntityFactory
+from Code.EntityMediator import EntityMediator
 from Code.Player import Player
 
 
