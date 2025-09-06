@@ -33,6 +33,8 @@ ENTITY_SPEED = {
     'Enemy1Shot': 5,
     'Enemy2': 1,
     'Enemy2Shot': 2,
+    'Enemy3': 0.7,
+    'Enemy3Shot': 2,
     'Explosion': 0
 }
 
@@ -57,6 +59,8 @@ ENTITY_HEALTH = {
     'Enemy1Shot': 1,
     'Enemy2': 60,
     'Enemy2Shot': 1,
+    'Enemy3': 750,
+    'Enemy3Shot': 1,
     'Explosion': 1
 }
 
@@ -65,6 +69,7 @@ ENTITY_SHOT_DELAY = {
     'Player2': 120,
     'Enemy1': 120,
     'Enemy2': 200,
+    'Enemy3': 300
 }
 
 ENTITY_DAMAGE = {
@@ -88,6 +93,8 @@ ENTITY_DAMAGE = {
     'Enemy1Shot': 20,
     'Enemy2': 1,
     'Enemy2Shot': 15,
+    'Enemy3': 1,
+    'Enemy3Shot': 100,
     'Explosion': 0
 }
 
@@ -112,6 +119,8 @@ ENTITY_SCORE = {
     'Enemy1Shot': 0,
     'Enemy2': 125,
     'Enemy2Shot': 0,
+    'Enemy3': 200,
+    'Enemy3Shot': 0,
     'Explosion': 0
 }
 
@@ -119,6 +128,7 @@ EXPLOSION_SOUND = {'Player1': './asset/8bit_bomb_explosion.wav',
                    'Player2': './asset/8bit_bomb_explosion.wav',
                    'Enemy1': './asset/8bit_bomb_explosion.wav',
                    'Enemy2': './asset/8bit_bomb_explosion.wav',
+                   'Enemy3': './asset/8bit_bomb_explosion.wav'
                    }
 
 EXPLOSION_FRAMES = {'Player1': [
@@ -171,13 +181,26 @@ EXPLOSION_FRAMES = {'Player1': [
         "Ship4_Explosion_018.png",
         "Ship4_Explosion_019.png",
         "Ship4_Explosion_020.png"
+    ],
+    'Enemy3': [
+        "Ship6_Explosion_000.png",
+        "Ship6_Explosion_004.png",
+        "Ship6_Explosion_005.png",
+        "Ship6_Explosion_007.png",
+        "Ship6_Explosion_009.png",
+        "Ship6_Explosion_011.png",
+        "Ship6_Explosion_013.png",
+        "Ship6_Explosion_016.png",
+        "Ship6_Explosion_017.png",
+        "Ship6_Explosion_019.png",
+        "Ship6_Explosion_021.png"
     ]
 }
 
 # L
 
 LEVEL_SCORE_THRESHOLD = {'Level1': 1000,
-                         'Level2': 2000}
+                         'Level2': 3000}
 
 # M
 MENU_OPTION = ('NEW GAME 1P',
@@ -204,7 +227,8 @@ SHOT_SOUNDS = {
     'Player1': './asset/Fire_1.mp3',
     'Player2': './asset/Fire_4.mp3',
     'Enemy1': './asset/Fire_2.mp3',
-    'Enemy2': './asset/Fire_5.mp3'
+    'Enemy2': './asset/Fire_5.mp3',
+    'Enemy3': './asset/Fire_6.mp3'
 }
 
 # T
