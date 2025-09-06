@@ -54,6 +54,7 @@ class Level:
             clock.tick(60)
 
             for event in pygame.event.get():
+
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -66,7 +67,16 @@ class Level:
                     if event.type == EVENT_TIMEOUT:
                         self.timeout -= TIMEOUT_STEP
 
-                        # Verifica pontuação mínima
+                        # Timeout atingido
+                        if self.timeout <= 0:
+                            for ent in self.entity_list:
+                                if isinstance(ent, Player) and ent.name == 'Player1':
+                                    player_score[0] = ent.score
+                                if isinstance(ent, Player) and ent.name == 'Player2':
+                                    player_score[1] = ent.score
+                            return player_score, "game_over"
+
+                    if self.timeout > 0:
                         for ent in self.entity_list:
                             if isinstance(ent, Player):
                                 if ent.name == 'Player1' and ent.score >= LEVEL_SCORE_THRESHOLD[self.name]:
@@ -75,15 +85,6 @@ class Level:
                                 if ent.name == 'Player2' and ent.score >= LEVEL_SCORE_THRESHOLD[self.name]:
                                     player_score[1] = ent.score
                                     return player_score, "score_clear"
-
-                        # Timeout atingido
-                        if self.timeout == 0:
-                            for ent in self.entity_list:
-                                if isinstance(ent, Player) and ent.name == 'Player1':
-                                    player_score[0] = ent.score
-                                if isinstance(ent, Player) and ent.name == 'Player2':
-                                    player_score[1] = ent.score
-                            return player_score, "timeout"
 
             if self.game_over:
                 elapsed = pygame.time.get_ticks() - self.game_over_time
@@ -149,6 +150,12 @@ class Level:
             EntityMediator.verify_health(entity_list=self.entity_list)
 
     def level_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
+        text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
+        text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
+        text_rect: Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])
+        self.window.blit(source=text_surf, dest=text_rect)
+
+    def message_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(left=text_pos[0], top=text_pos[1])

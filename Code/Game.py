@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import pygame
+from pygame import KEYDOWN
 
 from Code.Const import WIN_WIDTH, WIN_HEIGHT, MENU_OPTION, C_YELLOW, C_WHITE
 from Code.Level import Level
@@ -24,13 +25,14 @@ class Game:
                 level = Level(self.window, 'Level1', menu_return, player_score)
                 player_score, level_status = level.run(player_score)
 
-                if level_status in ["score_clear", "timeout"]:
+                if level_status in ["score_clear"]:
                     level = Level(self.window, 'Level2', menu_return, player_score)
                     player_score, level_status = level.run(player_score)
-                    if level_status in ["score_clear", "timeout"]:
+                    if level_status in ["score_clear"]:
                         score.save(menu_return, player_score)
-
-                elif level_status == "game_over":
+                    else:
+                        self.show_game_over()
+                else:
                     self.show_game_over()
 
             elif menu_return == MENU_OPTION[3]:

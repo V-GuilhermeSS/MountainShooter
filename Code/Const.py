@@ -1,13 +1,15 @@
-# C
 import pygame
 
-C_ORANGE = (255, 128, 0)
-C_WHITE = (255, 255, 255)
-C_YELLOW = (255, 200, 15)
-C_GREEN = (0, 128, 0)
-C_CYAN = (0, 128, 128)
+# C
+
+C_ORANGE = (245, 70, 15)  # Title of game
+C_WHITE = (248, 248, 255)  # Menu option deselected
+C_YELLOW = (255, 215, 0)  # Menu option selected / YOU WIN /
+C_GREEN = (0, 128, 0)  # HUD
+C_CYAN = (0, 128, 128)  # HUD player2
 
 # E
+
 EVENT_ENEMY = pygame.USEREVENT + 1
 EVENT_TIMEOUT = pygame.USEREVENT + 2
 ENTITY_SPEED = {
@@ -59,7 +61,7 @@ ENTITY_HEALTH = {
 }
 
 ENTITY_SHOT_DELAY = {
-    'Player1': 120,
+    'Player1': 150,
     'Player2': 120,
     'Enemy1': 120,
     'Enemy2': 200,
@@ -117,9 +119,6 @@ EXPLOSION_SOUND = {'Player1': './asset/8bit_bomb_explosion.wav',
                    'Player2': './asset/8bit_bomb_explosion.wav',
                    'Enemy1': './asset/8bit_bomb_explosion.wav',
                    'Enemy2': './asset/8bit_bomb_explosion.wav',
-                   'Level1': './asset/8bit_bomb_explosion.wav',
-                   'Level2': './asset/8bit_bomb_explosion.wav',
-
                    }
 
 EXPLOSION_FRAMES = {'Player1': [
@@ -177,8 +176,8 @@ EXPLOSION_FRAMES = {'Player1': [
 
 # L
 
-LEVEL_SCORE_THRESHOLD = {'Level1': 1200,
-                         'Level2': 3500}
+LEVEL_SCORE_THRESHOLD = {'Level1': 1000,
+                         'Level2': 2000}
 
 # M
 MENU_OPTION = ('NEW GAME 1P',
@@ -198,8 +197,8 @@ PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT,
 PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL,
                     'Player2': pygame.K_LCTRL}
 # S
-SPAWN_TIME = {'Level1': 5000,
-              'Level2': 3500}
+SPAWN_TIME = {'Level1': 4000,
+              'Level2': 3000}
 
 SHOT_SOUNDS = {
     'Player1': './asset/Fire_1.mp3',

@@ -7,7 +7,7 @@ import pygame
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.font import Font
 
-from Code.Const import C_YELLOW, SCORE_POS, MENU_OPTION, C_WHITE
+from Code.Const import C_YELLOW, SCORE_POS, MENU_OPTION, C_WHITE, C_ORANGE
 from Code.DBProxy import DBProxy
 
 
@@ -30,33 +30,33 @@ class Score:
             self.window.blit(source=self.surf, dest=self.rect)
             self.score_text(48, 'YOU WIN!!', C_YELLOW, SCORE_POS['Title'])
             score = player_score[0]
-            text = 'Enter Player1 Name (04 characters)'
+            text = 'Enter Player1 Name (05 characters)'
             if game_mode == MENU_OPTION[0]:
                 score = player_score[0]
             if game_mode == MENU_OPTION[1]:
                 score = (player_score[0] + player_score[1]) / 2
-                text = 'Enter Team Name (04 characters)'
+                text = 'Enter Team Name (05 characters)'
             if game_mode == MENU_OPTION[2]:
                 if player_score[0] >= player_score[1]:
                     score = player_score[0]
-                    text = 'Enter Player1 Name (04 characters)'
+                    text = 'Enter Player1 Name (05 characters)'
                 else:
                     score = player_score[1]
-                    text = 'Enter Player2 Name (04 characters)'
-            self.score_text(20, text, C_WHITE, SCORE_POS['EnterName'])
+                    text = 'Enter Player2 Name (05 characters)'
+            self.score_text(20, text, C_ORANGE, SCORE_POS['EnterName'])
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 elif event.type == KEYDOWN:
-                    if event.key == K_RETURN and len(name) <= 4:
+                    if event.key == K_RETURN and len(name) <= 5:
                         db_proxy.save({'name': name, 'score': score, 'date': get_formatted_date()})
                         self.show()
                         return
                     if event.key == K_BACKSPACE:
                         name = name[:-1]
                     else:
-                        if len(name) < 4:
+                        if len(name) < 5:
                             name += event.unicode
             self.score_text(20, name, C_WHITE, SCORE_POS['Name'])
             pygame.display.flip()
@@ -68,15 +68,15 @@ class Score:
         pygame.mixer_music.play(-1)
         pygame.mixer_music.set_volume(0.5)
         self.window.blit(source=self.surf, dest=self.rect)
-        self.score_text(48, 'TOP 10 SCORE', C_YELLOW, SCORE_POS['Title'])
-        self.score_text(20, 'NAME     SCORE          DATE      ', C_YELLOW, SCORE_POS['Label'])
+        self.score_text(48, 'TOP 10 SCORE', C_ORANGE, SCORE_POS['Title'])
+        self.score_text(20, 'NAME     SCORE          DATE      ', C_ORANGE, SCORE_POS['Label'])
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()
         db_proxy.close()
 
         for player_score in list_score:
             id_, name, score, date = player_score
-            self.score_text(20, f'{name}      {score:05d}        {date}', C_YELLOW,
+            self.score_text(20, f'{name}      {int(score):05d}        {date}', C_WHITE,
                             SCORE_POS[list_score.index(player_score)])
         while True:
             for event in pygame.event.get():
