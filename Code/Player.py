@@ -49,6 +49,7 @@ class Player(Entity):
             if pressed_key[PLAYER_KEY_SHOOT[self.name]]:
                 self.last_shot_time = current_time
                 self.shot_sound.play()
+                pygame.mixer.Sound.set_volume(self.shot_sound, 0.5)
                 return PlayerShot(name=f'{self.name}Shot', position=(self.rect.centerx, self.rect.centery))
         return None
 

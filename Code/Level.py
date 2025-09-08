@@ -54,7 +54,6 @@ class Level:
             clock.tick(60)
 
             for event in pygame.event.get():
-
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
@@ -86,34 +85,36 @@ class Level:
                                     player_score[1] = ent.score
                                     return player_score, "score_clear"
 
-            if self.game_over:
-                elapsed = pygame.time.get_ticks() - self.game_over_time
-                remaining = max(0, 5 - elapsed // 1000)
-
-                overlay = pygame.Surface(self.window.get_size())
-                overlay.set_alpha(5)
-                overlay.fill((100, 100, 100))
-                self.window.blit(overlay, (0, 0))
-
-                text = self.font_big.render("GAME OVER", True, C_YELLOW)
-                text_rect = text.get_rect(center=(self.window.get_width() // 2, self.window.get_height() // 2 - 40))
-                self.window.blit(text, text_rect)
-
-                press_esc = self.font_small.render(f"Voltando ao Menu em {remaining}s...", True, C_WHITE)
-                press_esc_rect = press_esc.get_rect(center=(self.window.get_width() // 2,
-                                                            self.window.get_height() // 2 + 40))
-                self.window.blit(press_esc, press_esc_rect)
-
-                pygame.display.flip()
-
-                if elapsed > 5000:
-                    for ent in self.entity_list:
-                        if isinstance(ent, Player) and ent.name == 'Player1':
-                            player_score[0] = ent.score
-                        if isinstance(ent, Player) and ent.name == 'Player2':
-                            player_score[1] = ent.score
-                    return player_score, "game_over"
-                continue
+            if not any(isinstance(ent, Player) for ent in self.entity_list):
+                return player_score, "game_over"
+            # if self.game_over:
+            #     elapsed = pygame.time.get_ticks() - self.game_over_time
+            #     remaining = max(0, 5 - elapsed // 1000)
+            #
+            #     overlay = pygame.Surface(self.window.get_size())
+            #     overlay.set_alpha(5)
+            #     overlay.fill((100, 100, 100))
+            #     self.window.blit(overlay, (0, 0))
+            #
+            #     text = self.font_big.render("GAME OVER", True, C_YELLOW)
+            #     text_rect = text.get_rect(center=(self.window.get_width() // 2, self.window.get_height() // 2 - 40))
+            #     self.window.blit(text, text_rect)
+            #
+            #     press_esc = self.font_small.render(f"Voltando ao Menu em {remaining}s...", True, C_WHITE)
+            #     press_esc_rect = press_esc.get_rect(center=(self.window.get_width() // 2,
+            #                                                 self.window.get_height() // 2 + 40))
+            #     self.window.blit(press_esc, press_esc_rect)
+            #
+            #     pygame.display.flip()
+            #
+            #     if elapsed > 5000:
+            #         for ent in self.entity_list:
+            #             if isinstance(ent, Player) and ent.name == 'Player1':
+            #                 player_score[0] = ent.score
+            #             if isinstance(ent, Player) and ent.name == 'Player2':
+            #                 player_score[1] = ent.score
+            #         return player_score, "game_over"
+            #     continue
 
             for ent in self.entity_list[:]:
                 ent.move()

@@ -3,7 +3,7 @@
 import sys
 
 import pygame
-from pygame import Surface, Rect, KEYDOWN
+from pygame import Surface, Rect
 from pygame.font import Font
 
 from Code.Const import WIN_WIDTH, C_ORANGE, MENU_OPTION, C_WHITE, C_YELLOW
@@ -15,6 +15,50 @@ class Menu:
         self.surf = pygame.image.load('./asset/MenuBg.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
 
+    def fade_in(self, duration=2000):
+        clock = pygame.time.Clock()
+        steps = 30
+        for i in range(steps):
+            alpha = 255 - int((i / steps) * 255)
+
+            # Desenha o menu normalmente
+            self.window.blit(self.surf, self.rect)
+            self.menu_text(50, 'Mountain', C_ORANGE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, 'Shooter', C_ORANGE, ((WIN_WIDTH / 2), 120))
+            for j in range(len(MENU_OPTION)):
+                self.menu_text(20, MENU_OPTION[j], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * j))
+
+            # Cria o overlay escuro
+            overlay = pygame.Surface(self.window.get_size())
+            overlay.set_alpha(alpha)
+            overlay.fill((0, 0, 0))
+            self.window.blit(overlay, (0, 0))
+
+            pygame.display.flip()
+            clock.tick(2000 // duration * steps)
+
+    def fade_out(self, duration=1000):
+        clock = pygame.time.Clock()
+        steps = 30
+        for i in range(steps):
+            alpha = int((i / steps) * 255)
+
+            # Desenha o menu normalmente
+            self.window.blit(self.surf, self.rect)
+            self.menu_text(50, 'Mountain', C_ORANGE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, 'Shooter', C_ORANGE, ((WIN_WIDTH / 2), 120))
+            for j in range(len(MENU_OPTION)):
+                self.menu_text(20, MENU_OPTION[j], C_WHITE, ((WIN_WIDTH / 2), 200 + 25 * j))
+
+            # Cria o overlay escuro
+            overlay = pygame.Surface(self.window.get_size())
+            overlay.set_alpha(alpha)
+            overlay.fill((0, 0, 0))
+            self.window.blit(overlay, (0, 0))
+
+            pygame.display.flip()
+            clock.tick(1000 // duration * steps)
+
     def run(self, ):
         menu_option = 0
         # Loading music file
@@ -23,6 +67,8 @@ class Menu:
         pygame.mixer_music.play(-1)
         pygame.mixer_music.set_volume(0.3)
         pygame.key.set_repeat(300, 100)  # key continues navigation while pressed
+
+        self.fade_in()
         while True:
             # DRAW IMAGES
             self.window.blit(source=self.surf, dest=self.rect)
@@ -38,10 +84,6 @@ class Menu:
 
             # Check for all events
             for event in pygame.event.get():
-                if event.type == KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        pygame.quit()
-                        sys.exit()
                 if event.type == pygame.QUIT:
                     pygame.quit()  # Close Window
                     sys.exit()  # end pygame
@@ -57,6 +99,7 @@ class Menu:
                         else:
                             menu_option = len(MENU_OPTION) - 1
                     if event.key == pygame.K_RETURN:  # ENTER
+                        self.fade_out()
                         return MENU_OPTION[menu_option]
 
     def menu_text(self, text_size: int, text: str, text_color: tuple, text_center_pos: tuple):

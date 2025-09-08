@@ -47,6 +47,7 @@ class Enemy(Entity):
                 self.shot_delay = random.choice([max_delay, max_delay // 2])
 
             self.shoot_sound.play()
+            pygame.mixer.Sound.set_volume(self.shoot_sound, 0.5)
             return EnemyShot(name=f'{self.name}Shot', position=(self.rect.centerx, self.rect.centery))
 
         return None
