@@ -12,23 +12,39 @@ from Code.DBProxy import DBProxy
 
 
 class Score:
+    """
+    Class to handle the score screen, including saving scores and displaying top scores.
+    """
 
     def __init__(self, window):
+        """
+        Initialize the Score screen with the game window and background.
+
+        :param window: The main pygame display surface
+        """
         self.window = window
         self.surf = pygame.image.load('./asset/ScoreBg.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
         pass
 
     def save(self, game_mode: str, player_score: list[int]):
-        # Loading music file
+        """
+        Display the score input screen and save the player's score to the database.
+
+        :param game_mode: Current game mode (single, team, or versus)
+        :param player_score: List containing player scores
+        """
+        # Load and play the score screen music
         pygame.mixer_music.load('./asset/Score.mp3')
-        # Playing the music file above
         pygame.mixer_music.play(-1)
         db_proxy = DBProxy('DBScore')
         name = ''
+
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
             self.score_text(48, 'YOU WIN!!', C_YELLOW, SCORE_POS['Title'])
+
+            # Determine which score to display and the text prompt
             score = player_score[0]
             text = 'Enter Player1 Name (05 characters)'
             if game_mode == MENU_OPTION[0]:
@@ -43,13 +59,18 @@ class Score:
                 else:
                     score = player_score[1]
                     text = 'Enter Player2 Name (05 characters)'
+
+            # Display prompt text
             self.score_text(20, text, C_ORANGE, SCORE_POS['EnterName'])
+
+            # Event handling for name input
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 elif event.type == KEYDOWN:
                     if event.key == K_RETURN and len(name) <= 5:
+                        # Save score to database and show top scores
                         db_proxy.save({'name': name, 'score': score, 'date': get_formatted_date()})
                         self.show()
                         return
@@ -58,26 +79,36 @@ class Score:
                     else:
                         if len(name) < 5:
                             name += event.unicode
+
+            # Display the current input name
             self.score_text(20, name, C_WHITE, SCORE_POS['Name'])
             pygame.display.flip()
 
     def show(self):
-        # Loading music file
+        """
+        Display the top 10 scores from the database.
+        """
+        # Load and play the score screen music
         pygame.mixer_music.load('./asset/Score.mp3')
-        # Playing the music file above
         pygame.mixer_music.play(-1)
         pygame.mixer_music.set_volume(0.5)
+
+        # Draw the background and headings
         self.window.blit(source=self.surf, dest=self.rect)
         self.score_text(48, 'TOP 10 SCORE', C_ORANGE, SCORE_POS['Title'])
         self.score_text(20, 'NAME     SCORE          DATE      ', C_ORANGE, SCORE_POS['Label'])
+
         db_proxy = DBProxy('DBScore')
         list_score = db_proxy.retrieve_top10()
         db_proxy.close()
 
+        # Display each top score
         for player_score in list_score:
             id_, name, score, date = player_score
             self.score_text(20, f'{name}      {int(score):05d}        {date}', C_WHITE,
                             SCORE_POS[list_score.index(player_score)])
+
+        # Wait for user to press ESC or close window
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -90,6 +121,14 @@ class Score:
             pygame.display.flip()
 
     def score_text(self, text_size: int, text: str, text_color: tuple, text_pos: tuple):
+        """
+        Render and display text on the game window.
+
+        :param text_size: Font size
+        :param text: Text content
+        :param text_color: RGB color tuple
+        :param text_pos: Center position (x, y) to draw the text
+        """
         text_font: Font = pygame.font.SysFont(name="Lucida Sans Typewriter", size=text_size)
         text_surf: Surface = text_font.render(text, True, text_color).convert_alpha()
         text_rect: Rect = text_surf.get_rect(center=text_pos)
@@ -97,6 +136,11 @@ class Score:
 
 
 def get_formatted_date():
+    """
+    Return the current date and time formatted as 'HH:MM - DD/MM/YY'.
+
+    :return: Formatted date string
+    """
     current_datetime = datetime.now()
     current_time = current_datetime.strftime("%H:%M")
     current_date = current_datetime.strftime("%d/%m/%y")

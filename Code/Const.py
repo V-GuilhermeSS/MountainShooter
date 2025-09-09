@@ -1,11 +1,18 @@
 import pygame
+"""
+Game constants module.
+
+Defines colors, events, entity properties (speed, health, damage, etc.),
+sounds, animations, controls, window dimensions, HUD positions, and other fixed values
+used in different parts of the game.
+"""
 
 # C
 
 C_ORANGE = (245, 70, 15)  # Title of game
 C_WHITE = (248, 248, 255)  # Menu option deselected
 C_YELLOW = (255, 215, 0)  # Menu option selected / YOU WIN /
-C_GREEN = (0, 128, 0)  # HUD
+C_GREEN = (0, 128, 0)  # HUD player1
 C_CYAN = (0, 128, 128)  # HUD player2
 
 # E
@@ -59,7 +66,7 @@ ENTITY_HEALTH = {
     'Enemy1Shot': 1,
     'Enemy2': 60,
     'Enemy2Shot': 1,
-    'Enemy3': 750,
+    'Enemy3': 550,
     'Enemy3Shot': 1,
     'Explosion': 1
 }
