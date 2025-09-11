@@ -25,7 +25,6 @@ class Score:
         self.window = window
         self.surf = pygame.image.load('./asset/ScoreBg.png').convert_alpha()
         self.rect = self.surf.get_rect(left=0, top=0)
-        pass
 
     def save(self, game_mode: str, player_score: list[int]):
         """
